@@ -1,7 +1,9 @@
 include_recipe "deploy"
 
 node[:deploy].each do |application, deploy|
-  node.override[:deploy][application][:deploy_to] = "#{deploy[:deploy_to]}/#{deploy[:migrations_dir] || "migrations"}"
+  node.default[:migrations_dir] = "migrations"
+  node.override[:deploy][application][:deploy_to] = "#{deploy[:deploy_to]}/#{deploy[:migrations_dir]}"
+  node.default[:deploy][application][:migration_command] = "bundle exec rake db:migrate"
   opsworks_deploy_dir do
     user deploy[:user]
     group deploy[:group]
