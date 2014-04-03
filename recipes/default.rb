@@ -1,6 +1,6 @@
 include_recipe "deploy"
 
-Chef::Log.info("DEPLOY ATTRIBUTES: #{node[:deploy]}")
+Chef::Log.info("DEPLOY ATTRIBUTES: #{node.inspect}")
 node[:deploy].each do |application, deploy|
   node.default[:migrations_dir] = "migrations"
   node.override[:deploy][application][:deploy_to] = "#{deploy[:deploy_to]}/#{deploy[:migrations_dir]}"
