@@ -1,9 +1,9 @@
 include_recipe "deploy"
 
 node[:deploy].each do |application, deploy|
-  node.default[:migrations_dir] = "migrations"
-  node.override[:deploy][application][:deploy_to] = "#{deploy[:deploy_to]}/#{deploy[:migrations_dir]}"
-  node.default[:deploy][application][:migration_command] = "bundle exec rake db:migrate"
+  node.override[:migrations_dir] = "migrations"
+  node.override[:deploy][application][:deploy_to] = "#/srv/www/#{application}/#{deploy[:migrations_dir]}"
+  node.override[:deploy][application][:migration_command] = "bundle exec rake db:migrate"
   Chef::Log.info("DEPLOY_TO: #{deploy[:deploy_to]}")
   Chef::Log.info("FULL PATH DEPLOY_TO: #{node[:deploy][application][:deploy_to]}")
   opsworks_deploy_dir do
