@@ -1,10 +1,11 @@
 include_recipe "deploy"
 
-Chef::Log.info("DEPLOY ATTRIBUTES: #{node.inspect}")
 node[:deploy].each do |application, deploy|
   node.default[:migrations_dir] = "migrations"
   node.override[:deploy][application][:deploy_to] = "#{deploy[:deploy_to]}/#{deploy[:migrations_dir]}"
   node.default[:deploy][application][:migration_command] = "bundle exec rake db:migrate"
+  Chef::Log.info("DEPLOY_TO: #{deploy[:deploy_to]}")
+  Chef::Log.info("FULL PATH DEPLOY_TO: #{node[:deploy][application][:deploy_to]}")
   opsworks_deploy_dir do
     user deploy[:user]
     group deploy[:group]
