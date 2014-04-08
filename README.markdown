@@ -16,8 +16,8 @@ This cookbook aims to solve the problem with how migrations work on OpsWorks. Th
 Attributes
 ----------
 
-* deploy_to - Where do you want the applicaiton to be deployed to run the migrations
-* migrate_command - What Command Do you want to run on
+* [:opsworks-migrations][:dir] - Where do you want the applicaiton to be deployed to run the migrations
+* [:opsworks-migrations][:command] - What Command Do you want to run on
 
 Usage
 --------
