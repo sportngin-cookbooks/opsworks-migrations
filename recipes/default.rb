@@ -20,5 +20,4 @@ node[:deploy].each do |application, deploy|
   migration_command = deploy[:migration_command] || node[:"opsworks-migrations"][:command]
   Chef::Log.info("Running Migrations")
   Chef::Log.info(OpsWorks::ShellOut.shellout("cd #{deploy[:deploy_to]}/current &&  RAILS_ENV=#{deploy[:rails_env]} #{migration_command}"))
-  end
 end
