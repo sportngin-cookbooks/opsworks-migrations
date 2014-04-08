@@ -7,5 +7,6 @@ description      'Run Rails Migrations on Demand for AWS OpsWorks'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.markdown'))
 version          '0.1.0'
 
+depends "opsworks_commons"
 depends "deploy"
 
