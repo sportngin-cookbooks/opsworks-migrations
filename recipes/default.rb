@@ -3,8 +3,6 @@ include_recipe "deploy"
 node[:deploy].each do |application, deploy|
   node.override[:deploy][application][:deploy_to] = "/srv/www/#{application}/#{node[:"opsworks-migrations"][:dir]}"
   deploy = node[:deploy][application]
-  Chef::Log.info("DEPLOY_TO: #{deploy[:deploy_to]}")
-  Chef::Log.info("FULL PATH DEPLOY_TO: #{node[:deploy][application][:deploy_to]}")
   opsworks_deploy_dir do
     user deploy[:user]
     group deploy[:group]
@@ -26,6 +24,7 @@ node[:deploy].each do |application, deploy|
   ruby_block "Running Migrations" do
     block do
       migration_command = deploy[:migration_command] || node[:"opsworks-migrations"][:command]
+      Chef::Log.info("MIGRATION COMMAND: #{migration_command}")
       Chef::Log.info(`cd #{deploy[:deploy_to]}/current &&  RAILS_ENV=#{deploy[:rails_env]} #{migration_command}`)
       raise "Migrations FAILED" unless $?.success?
     end
