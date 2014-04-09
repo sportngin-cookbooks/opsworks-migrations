@@ -8,7 +8,7 @@ node[:deploy].each do |application, deploy|
     group deploy[:group]
     path deploy[:deploy_to]
   end
-
+  Chef::Log.info("DEPLOY ATTRIBUTES: #{deploy.inspect}")
   opsworks_deploy do
     deploy_data deploy
     app application
