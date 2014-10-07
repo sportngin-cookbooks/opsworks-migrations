@@ -8,6 +8,16 @@ node[:deploy].each do |application, deploy|
     group deploy[:group]
     path deploy[:deploy_to]
   end
+
+  Chef::Log.info("Ensuring shared/cache directory for #{application} app...")
+  directory "#{deploy[:deploy_to]}/shared/cache" do
+    group 'nginx'
+    owner 'deploy'
+    mode 0775
+    action :create
+    recursive true
+  end
+
   Chef::Log.info("DEPLOY ATTRIBUTES: #{deploy.inspect}")
   opsworks_deploy do
     deploy_data deploy
