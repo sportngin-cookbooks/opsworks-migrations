@@ -3,6 +3,7 @@ env:
   - EC2_SSH_KEY_PATH: ec2.pem
   - secure: YJXg9nTOabDp4JQTv16jJV/z3duTtN+KvjBMGJ6J/6CTAT65dkzW2YGq56SG7nPMA/pzrjataTWKMgeJcbCqGPV1mHnOKa/k7Zd6sWM8Sqa/Q+32D8dm3chZh3VMS6851d7twO6ond+z2gzWAx4N2e0z0cqLiVeX8TKJbHdR8NE=
   - secure: WT8DoSym7Exf6GkJwl5J5a3G7QwPT5uptDklJaj3uwaOu4U1fLy4JXSWkn6SpqfSj7tRryZpVI5qldZDmYxzUXKtMBsI9X44YNroKaeBSO0ZnGYKzAOZ4raH9UEktrUWfeKzSb/ryrLVA+E/ahl3ze/3AlW5HnKHNY7Qgbv0ffo=
+  - secure: THRsJZsIKt7f0/rAn35XZh+9s9QdVZ5mV9oq30qisi9Y8XiqzUO95yC8TBesW43yxK8Af9GieZQPLUUewGuIBLlr4y9jYufPaqMcalDlG0VFCxU29sR7irTrLJEiEbcTEY6Tl7bPiImW2HGfAAHq5z+7S9sZNZZP1qyT9hNqTjQ=
 before_install:
 - openssl aes-256-cbc -K $encrypted_4ab726e66ba8_key -iv $encrypted_4ab726e66ba8_iv
   -in id_rsa_kitchen_ec2.enc -out ec2.pem -d
