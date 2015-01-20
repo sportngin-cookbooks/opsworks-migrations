@@ -5,4 +5,6 @@ set :backend, :exec
 set :path, '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH'
 ENV['PATH']="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:#{ENV['PATH']}"
 
-#TODO tests
+describe file('/srv/www/test_app/migrations/current/migration-executed') do
+  it { should be_file }
+end

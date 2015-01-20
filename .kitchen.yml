@@ -15,6 +15,45 @@ provisioner:
   name: chef_solo
   attributes:
     test_kitchen: true
+    opsworks-migrations:
+      command: touch migration-executed
+    opsworks:
+      ruby_version: '2.1'
+      ruby_stack: "ruby"
+    deploy:
+      test_app:
+        ssl_support: false
+        application: "test_app"
+        database: {}
+        ssl_certificate_ca: null
+        migrate: false
+        deploy_to: "/srv/www/test_app"
+        environment: {}
+        scm:
+          scm_type: "other"
+        ssl_certificate_key: null
+        rails_env: "test"
+        auto_bundle_on_deploy: false
+        environment_variables: {}
+        ssl_certificate: null
+        restart_command: null
+        symlinks:
+          log: "log"
+          system: "public/system"
+          pids: "tmp/pids"
+        deploying_user: null
+        application_type: "other"
+        memcached:
+          port: 11211
+          host: null
+        symlink_before_migrate:
+          config/database.yml: "config/database.yml"
+          config/memcached.yml: "config/memcached.yml"
+        sleep_before_restart: 0
+        mounted_at: null
+        domains:
+          - "localhost"
+        document_root: "public"
 
 platforms:
   - name: amzn-2014-09-1
@@ -37,5 +76,6 @@ suites:
     run_list:
       - recipe[opsworks_initial_setup]
       - recipe[dependencies]
+      - recipe[opsworks-migrations::_test-setup]
       - recipe[opsworks-migrations::default]
     attributes:
