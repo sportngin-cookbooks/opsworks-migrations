@@ -1,7 +1,6 @@
-task default: %w[lint test]
+task default: %w[lint spec test]
 
-# Log warnings but only fail the build on correctness issues.
-# To list correctness: foodcritic -t correctness -t ~FC001 .
+desc("Log warnings but only fail the build on correctness. To list correctness: `foodcritic -t correctness -t ~FC001 .`")
 task :lint do
   require 'foodcritic'
   FoodCritic::Rake::LintTask.new do |t|
@@ -13,6 +12,14 @@ task :lint do
   Rake::Task['foodcritic'].invoke
 end
 
+begin
+  require 'rspec/core/rake_task'
+  desc("Run all unit tests.")
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+end
+
+desc("Run all test kitchen integration tests.")
 task :test do
   require 'kitchen/rake_tasks'
   Kitchen::RakeTasks.new

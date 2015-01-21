@@ -1,7 +1,8 @@
+helper = OpsworksMigrations::Helper.new(node)
 include_recipe "deploy"
 
 node[:deploy].each do |application, deploy|
-  node.override[:deploy][application][:deploy_to] = "/srv/www/#{application}/#{OpsworksMigrations.dir}"
+  node.override[:deploy][application][:deploy_to] = "/srv/www/#{application}/#{helper.dir}"
   deploy = node[:deploy][application]
   opsworks_deploy_dir do
     user deploy[:user]
@@ -32,10 +33,12 @@ node[:deploy].each do |application, deploy|
 
   ruby_block "Running Migrations" do
     block do
-      migration_command = deploy[:migration_command] || OpsworksMigrations.command
+      migration_command = deploy[:migration_command] || helper.command
       Chef::Log.info(
-          OpsWorks::ShellOut.shellout("cd #{deploy[:deploy_to]}/current &&  RAILS_ENV=#{deploy[:rails_env]} #{migration_command}"),
-          timeout: node[:opsworks_migrations][:timeout]
+          helper.shellout(
+              "cd #{deploy[:deploy_to]}/current && RAILS_ENV=#{deploy[:rails_env]} #{migration_command}",
+              { :timeout => node[:opsworks_migrations][:timeout] }
+          )
       )
     end
   end
