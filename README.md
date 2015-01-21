@@ -1,6 +1,8 @@
 Description
 ----------
 
+[![Build Status](https://travis-ci.org/sportngin-cookbooks/opsworks-migrations.svg?branch=master)](https://travis-ci.org/sportngin-cookbooks/opsworks-migrations)
+
 This cookbook is used for running on demand migrations for Rails applications on AWS OpsWorks.
 
 Problem
