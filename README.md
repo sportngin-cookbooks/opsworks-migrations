@@ -20,8 +20,11 @@ This is developed and tested against Amazon Linux and Chef 11.4 OpsWorks.
 Attributes
 ----------
 
-* `[:opsworks-migrations][:dir]` - Where do you want the applicaiton to be deployed to run the migrations
-* `[:opsworks-migrations][:command]` - What command do you want to run on application to execute migration.
+* `[:opsworks_migrations][:dir]` - Where do you want the application to be deployed to run the migrations.
+* `[:opsworks_migrations][:command]` - What command do you want to run on application to execute migration.
+* `[:opsworks_migrations][:timeout]` - Timeout for command in seconds.  Defaults to 600s/10m.
+
+Note: `[:opsworks-migrations][:dir]` and `[:opsworks-migrations][:command]` are deprecated but are still compatible.
 
 Usage
 --------
