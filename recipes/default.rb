@@ -25,9 +25,9 @@ node[:deploy].each do |application, deploy|
     app application
   end
 
-  ruby_block "Running Bundle Install" do
+  ruby_block "Run Bundle Install" do
     block do
-      Chef::Log.info(OpsWorks::ShellOut.shellout("cd #{deploy[:deploy_to]}/current &&  bundle install --path #{deploy[:deploy_to]}/shared/bundle --without=test development --deployment"))
+      Mixlib::ShellOut.new("#{node[:opsworks_migrations][:bundler_path]} install --path #{deploy[:deploy_to]}/shared/bundle --without=test development --deployment").run_command
     end
   end
 
