@@ -27,9 +27,7 @@ node[:deploy].each do |application, deploy|
 
   ruby_block "Run Bundle Install" do
     block do
-      bundle = Mixlib::ShellOut.new("#{node[:opsworks_migrations][:bundler_path]} install --path #{deploy[:deploy_to]}/shared/bundle --without=test development --deployment",
-                                    :env => nil, :user => deploy[:user], :cwd => "#{deploy[:deploy_to]}/current", :live_stream => $stdout).run_command
-      bundle.error!
+      Mixlib::ShellOut.new("#{node[:opsworks_migrations][:bundler_path]} install --path #{deploy[:deploy_to]}/shared/bundle --without=test development --deployment").run_command
     end
   end
 
