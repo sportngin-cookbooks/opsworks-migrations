@@ -19,7 +19,6 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
-  Chef::Log.info("DEPLOY ATTRIBUTES: #{deploy.inspect}")
   opsworks_deploy do
     deploy_data deploy
     app application
